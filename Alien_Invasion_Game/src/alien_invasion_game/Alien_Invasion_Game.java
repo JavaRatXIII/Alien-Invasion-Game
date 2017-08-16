@@ -1,21 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package alien_invasion_game;
+
+import java.awt.event.*;
+import Console.*;
+import javax.swing.*;
 
 /**
  *
  * @author Jun
  */
-public class Alien_Invasion_Game extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Alien_Invasion_Game
-     */
-    public Alien_Invasion_Game() {
+public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionListener, KeyListener
+{
+    private int _xpos;
+    private int _ypos;
+    private IConsole _console;
+    Timer t = new Timer(5,this);
+    
+    public Alien_Invasion_Game() 
+    {
+        t.start();
+        addKeyListener(this);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
+        
         initComponents();
+        _xpos = User.getX();
+        _ypos = User.getY(); 
+        _console = new Console();
     }
 
     /**
@@ -27,21 +37,40 @@ public class Alien_Invasion_Game extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        User = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        User.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        User.setText("Test");
+        User.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                UserKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 581, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(283, 283, 283)
+                .addComponent(User)
+                .addContainerGap(289, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 499, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(524, Short.MAX_VALUE)
+                .addComponent(User)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void UserKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_UserKeyPressed
+    }//GEN-LAST:event_UserKeyPressed
 
     /**
      * @param args the command line arguments
@@ -79,5 +108,45 @@ public class Alien_Invasion_Game extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel User;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_LEFT)
+        {
+            _xpos--;
+            User.setLocation(_xpos, _ypos);
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+        {
+            _xpos++;
+            User.setLocation(_xpos, _ypos);
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_UP)
+        {
+            _ypos--;
+            User.setLocation(_xpos, _ypos);
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_DOWN)
+        {
+            _ypos++;
+            User.setLocation(_xpos, _ypos);
+        }
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
+    }
 }
