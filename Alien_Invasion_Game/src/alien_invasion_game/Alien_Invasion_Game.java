@@ -42,7 +42,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         User.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        User.setText("Test");
+        User.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserShip.jpg"))); // NOI18N
         User.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 UserKeyPressed(evt);
@@ -53,15 +53,15 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(283, 283, 283)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(289, Short.MAX_VALUE)
                 .addComponent(User)
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addGap(286, 286, 286))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(524, Short.MAX_VALUE)
+                .addContainerGap(486, Short.MAX_VALUE)
                 .addComponent(User)
                 .addContainerGap())
         );
