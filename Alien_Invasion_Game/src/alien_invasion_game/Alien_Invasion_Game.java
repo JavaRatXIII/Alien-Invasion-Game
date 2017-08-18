@@ -26,7 +26,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         
         initComponents();
         getContentPane().setBackground(Color.WHITE);
-        //_numberOfAliens = Integer.parseInt(JOptionPane.showInputDialog("give num"));
+        _numberOfAliens = Integer.parseInt(JOptionPane.showInputDialog("Give number of how many Aliens you want to face"));
         
         CreateAliens();
         
@@ -40,7 +40,6 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     private void initComponents() {
 
         User = new javax.swing.JLabel();
-        Alien1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -53,15 +52,12 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
             }
         });
 
-        Alien1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AlienShip.jpg"))); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(Alien1)
-                .addGap(219, 219, 219)
+                .addGap(275, 275, 275)
                 .addComponent(User)
                 .addContainerGap(300, Short.MAX_VALUE))
         );
@@ -71,9 +67,6 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                 .addContainerGap(486, Short.MAX_VALUE)
                 .addComponent(User)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Alien1))
         );
 
         pack();
@@ -105,14 +98,13 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JLabel Alien1;
     public javax.swing.JLabel User;
     // End of variables declaration//GEN-END:variables
 
     public final void CreateAliens()
     {
         int xpos = 70;
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < _numberOfAliens; i++)
         {
             JLabel l = new JLabel();
             l.setIcon(new ImageIcon(getClass().getResource("/AlienShip.jpg")));
