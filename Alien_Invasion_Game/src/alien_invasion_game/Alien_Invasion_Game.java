@@ -13,7 +13,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
 {
     private int _xpos;
     private int _ypos;
-    private int _numberOfAliens;
+    private int _numberOfAliens = 12;
     private IConsole _console;
     Timer t = new Timer(5,this);
     
@@ -26,7 +26,10 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         
         initComponents();
         getContentPane().setBackground(Color.WHITE);
-        _numberOfAliens = Integer.parseInt(JOptionPane.showInputDialog("Give number of how many Aliens you want to face"));
+        while(_numberOfAliens > 10)
+        {
+            _numberOfAliens = Integer.parseInt(JOptionPane.showInputDialog("Give number of how many Aliens you want to face (MAXIMUM 10 ALIENS)"));
+        }
         
         CreateAliens();
         
@@ -104,16 +107,39 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     public final void CreateAliens()
     {
         int xpos = 70;
+        int ypos = -10;
+        boolean goOnce = true;
         for(int i = 0; i < _numberOfAliens; i++)
         {
-            JLabel l = new JLabel();
-            l.setIcon(new ImageIcon(getClass().getResource("/AlienShip.jpg")));
-            l.setVisible(true);
-            l.setLocation(xpos, -10);
-            l.setSize(100, 100);
-            getContentPane().add(l);
-            xpos = xpos +100;
+            if(i < 5)
+            {
+                DrawAliens(xpos,ypos);
+                xpos = xpos +100;
+            }
+            else if(i >= 5)
+            {
+                if(goOnce)
+                {
+                    xpos = 70;
+                    ypos = 50;
+                    goOnce = false;
+                    DrawAliens(xpos,ypos);
+                }
+                DrawAliens(xpos,ypos);
+                ypos = 50;
+                xpos = xpos +100;
+            }
         }
+    }
+    
+    public void DrawAliens(int xpos, int ypos)
+    {
+        JLabel l = new JLabel();
+        l.setIcon(new ImageIcon(getClass().getResource("/AlienShip.jpg")));
+        l.setVisible(true);
+        l.setLocation(xpos, ypos);
+        l.setSize(100, 100);
+        getContentPane().add(l);
     }
     
     @Override
