@@ -15,6 +15,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     private int _ypos;
     private int _numberOfAliens = 12;
     private IConsole _console;
+    public JLabel[] Aliens;
     Timer t = new Timer(5,this);
     
     public Alien_Invasion_Game() 
@@ -29,6 +30,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         while(_numberOfAliens > 10)
         {
             _numberOfAliens = Integer.parseInt(JOptionPane.showInputDialog("Give number of how many Aliens you want to face (MAXIMUM 10 ALIENS)"));
+            Aliens = new JLabel[_numberOfAliens];
         }
         
         CreateAliens();
@@ -36,6 +38,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         _xpos = User.getX();
         _ypos = User.getY(); 
         _console = new Console();
+        MoveAliens();
     }
 
     @SuppressWarnings("unchecked")
@@ -113,7 +116,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         {
             if(i < 5)
             {
-                DrawAliens(xpos,ypos);
+                DrawAliens(i,xpos,ypos);
                 xpos = xpos +100;
             }
             else if(i >= 5)
@@ -123,23 +126,48 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                     xpos = 70;
                     ypos = 50;
                     goOnce = false;
-                    DrawAliens(xpos,ypos);
+                    DrawAliens(i,xpos,ypos);
                 }
-                DrawAliens(xpos,ypos);
+                DrawAliens(i,xpos,ypos);
                 ypos = 50;
                 xpos = xpos +100;
             }
         }
     }
     
-    public void DrawAliens(int xpos, int ypos)
+    public void DrawAliens(int i, int xpos, int ypos)
     {
-        JLabel l = new JLabel();
-        l.setIcon(new ImageIcon(getClass().getResource("/AlienShip.jpg")));
-        l.setVisible(true);
-        l.setLocation(xpos, ypos);
-        l.setSize(100, 100);
-        getContentPane().add(l);
+        Aliens[i] = new JLabel();
+        Aliens[i].setIcon(new ImageIcon(getClass().getResource("/AlienShip.jpg")));
+        Aliens[i].setVisible(true);
+        Aliens[i].setLocation(xpos, ypos);
+        Aliens[i].setSize(100, 100);
+        getContentPane().add(Aliens[i]);
+    }
+    
+    public void MoveAliens()
+    {
+        new Thread()
+        {
+            @Override
+            public void run()
+            {
+                int x = 0;
+                while(t.isRunning())
+                {
+                    _console.WriteLine("Running "+Aliens[0].getX());
+                    x = Aliens[2].getX();
+                    x++;
+                    Aliens[2].setLocation(x, Aliens[2].getY());
+                    /*for(int i = 0; i < Aliens.length; i++)
+                    {
+                        int x = Aliens[i].getX();
+                        x++;
+                        Aliens[i].setLocation(x, Aliens[i].getY());
+                    }*/
+                }
+            }
+        }.start();
     }
     
     @Override
@@ -147,7 +175,6 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         if(e.getKeyCode() == KeyEvent.VK_LEFT)
         {
             _xpos--;
-            _console.WriteLine("Hel");
             User.setLocation(_xpos, _ypos);
         }
         else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
