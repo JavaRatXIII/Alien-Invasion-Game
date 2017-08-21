@@ -112,7 +112,6 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     {
         int xpos = 70;
         int ypos = -10;
-        boolean goOnce = true;
         for(int i = 0; i < _numberOfAliens; i++)
         {
             if(i < 5)
@@ -122,13 +121,6 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
             }
             else if(i >= 5)
             {
-                if(goOnce)
-                {
-                    xpos = 70;
-                    ypos = 50;
-                    goOnce = false;
-                    DrawAliens(i,xpos,ypos);
-                }
                 DrawAliens(i,xpos,ypos);
                 ypos = 50;
                 xpos = xpos +100;
@@ -159,9 +151,11 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                     for(int i = 0; i < Aliens.length; i++)
                     {
                         int x = random.nextInt(560) + 1;
-                        Aliens[i].setLocation(x, Aliens[i].getY());
+                        int y = random.nextInt(400) - 10;
+                        Aliens[i].setLocation(x, y);
                         _console.WriteLine("Alien "+i+ ": " +Aliens[i].getX());
                     }
+                    //t.stop();
                 }
             }
         }.start();
