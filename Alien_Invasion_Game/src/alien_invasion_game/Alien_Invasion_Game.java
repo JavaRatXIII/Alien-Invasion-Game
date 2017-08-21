@@ -154,10 +154,8 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
             public void run()
             {
                 Random random = new Random();
-                
                 while(t.isRunning())
                 {
-                    
                     for(int i = 0; i < Aliens.length; i++)
                     {
                         int x = random.nextInt(560) + 1;
