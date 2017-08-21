@@ -3,6 +3,7 @@ package alien_invasion_game;
 import java.awt.event.*;
 import Console.*;
 import java.awt.Color;
+import java.util.Random;
 import javax.swing.*;
 
 /**
@@ -152,19 +153,17 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
             @Override
             public void run()
             {
-                int x = 0;
+                Random random = new Random();
+                
                 while(t.isRunning())
                 {
-                    _console.WriteLine("Running "+Aliens[0].getX());
-                    x = Aliens[2].getX();
-                    x++;
-                    Aliens[2].setLocation(x, Aliens[2].getY());
-                    /*for(int i = 0; i < Aliens.length; i++)
+                    
+                    for(int i = 0; i < Aliens.length; i++)
                     {
-                        int x = Aliens[i].getX();
-                        x++;
+                        int x = random.nextInt(560) + 1;
                         Aliens[i].setLocation(x, Aliens[i].getY());
-                    }*/
+                        _console.WriteLine("Alien "+i+ ": " +Aliens[i].getX());
+                    }
                 }
             }
         }.start();
