@@ -4,6 +4,8 @@ import java.awt.event.*;
 import Console.*;
 import java.awt.Color;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -17,11 +19,12 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     private int _numberOfAliens = 12;
     private IConsole _console;
     public JLabel[] Aliens;
-    Timer t = new Timer(5,this);
+    private Timer _timer = new Timer(5,this);
+    
     
     public Alien_Invasion_Game() 
     {
-        t.start();
+        _timer.start();
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -146,16 +149,29 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
             public void run()
             {
                 Random random = new Random();
-                while(t.isRunning())
+                while(_timer.isRunning())
                 {
                     for(int i = 0; i < Aliens.length; i++)
                     {
                         int x = random.nextInt(560) + 1;
                         int y = random.nextInt(400) - 10;
+                        try 
+                        {
+                            if(Aliens.length > 5)
+                            {
+                                Thread.sleep(80);
+                            }
+                            else
+                            {
+                                Thread.sleep(300);
+                            }
+                        } 
+                        catch (InterruptedException ex) 
+                        {
+                            _console.WriteLine(ex.getMessage());
+                        }
                         Aliens[i].setLocation(x, y);
-                        _console.WriteLine("Alien "+i+ ": " +Aliens[i].getX());
                     }
-                    //t.stop();
                 }
             }
         }.start();
