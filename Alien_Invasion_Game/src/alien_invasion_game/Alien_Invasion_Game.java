@@ -159,7 +159,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                         {
                             if(Aliens.length > 5)
                             {
-                                Thread.sleep(80);
+                                Thread.sleep(100);
                             }
                             else
                             {
