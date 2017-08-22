@@ -117,17 +117,8 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         int ypos = -10;
         for(int i = 0; i < _numberOfAliens; i++)
         {
-            if(i < 5)
-            {
                 DrawAliens(i,xpos,ypos);
                 xpos = xpos +100;
-            }
-            else if(i >= 5)
-            {
-                DrawAliens(i,xpos,ypos);
-                ypos = 50;
-                xpos = xpos +100;
-            }
         }
     }
     
@@ -139,6 +130,42 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         Aliens[i].setLocation(xpos, ypos);
         Aliens[i].setSize(100, 100);
         getContentPane().add(Aliens[i]);
+    }
+    
+    public void ShootBullets()
+    {
+        JLabel bullet = new JLabel();
+        bullet.setVisible(true);
+        bullet.setLocation(_xpos,_ypos);
+        bullet.setSize(40, 70);
+        bullet.setIcon(new ImageIcon(getClass().getResource("/Bullet.jpg")));
+        getContentPane().add(bullet);
+        MoveBullet(bullet);
+    }
+    
+    public void MoveBullet(JLabel bullet)
+    {
+        new Thread()
+        {
+            int y = bullet.getY();
+            @Override
+            public void run()
+            {
+                while(_timer.isRunning())
+                {
+                    y--;
+                    try 
+                    {
+                        Thread.sleep(3);
+                    } 
+                    catch (InterruptedException ex) 
+                    {
+                        _console.WriteLine(ex.getMessage());
+                    }
+                    bullet.setLocation(bullet.getX(), y);
+                }
+            }
+        }.start();
     }
     
     public void MoveAliens()
@@ -198,6 +225,10 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         {
             _ypos++;
             User.setLocation(_xpos, _ypos);
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_SPACE)
+        {
+            ShootBullets();
         }
     }
     
