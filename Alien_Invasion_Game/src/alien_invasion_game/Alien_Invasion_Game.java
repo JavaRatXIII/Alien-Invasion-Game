@@ -156,7 +156,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                     y--;
                     try 
                     {
-                        Thread.sleep(3);
+                        Thread.sleep(2);
                     } 
                     catch (InterruptedException ex) 
                     {
