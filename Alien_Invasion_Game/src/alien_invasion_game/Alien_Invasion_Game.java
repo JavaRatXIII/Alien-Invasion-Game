@@ -19,12 +19,14 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     private int _numberOfAliens = 12;
     private IConsole _console;
     public JLabel[] Aliens;
+    private JLabel _bullet;
     private Timer _timer = new Timer(5,this);
     
     
     public Alien_Invasion_Game() 
     {
         _timer.start();
+        _bullet = new JLabel();
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -134,13 +136,12 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     
     public void ShootBullets()
     {
-        JLabel bullet = new JLabel();
-        bullet.setVisible(true);
-        bullet.setLocation(_xpos,_ypos);
-        bullet.setSize(40, 70);
-        bullet.setIcon(new ImageIcon(getClass().getResource("/Bullet.jpg")));
-        getContentPane().add(bullet);
-        MoveBullet(bullet);
+        _bullet.setVisible(true);
+        _bullet.setLocation(_xpos,_ypos);
+        _bullet.setSize(40, 70);
+        _bullet.setIcon(new ImageIcon(getClass().getResource("/Bullet.jpg")));
+        getContentPane().add(_bullet);
+        MoveBullet(_bullet);
     }
     
     public void MoveBullet(JLabel bullet)
@@ -163,9 +164,24 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                         _console.WriteLine(ex.getMessage());
                     }
                     bullet.setLocation(bullet.getX(), y);
+                    ShootAlien();
                 }
             }
         }.start();
+    }
+    
+    public void ShootAlien()
+    {
+        for(int i = 0; i < Aliens.length; i++)
+        {
+            if((_bullet.getY()==Aliens[i].getY()) && (_bullet.getX()==Aliens[i].getX()))
+            {
+                if(Aliens[i].isVisible())
+                {
+                    Aliens[i].setVisible(false);
+                }
+            }
+        }
     }
     
     public void MoveAliens()
@@ -186,11 +202,11 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                         {
                             if(Aliens.length > 5)
                             {
-                                Thread.sleep(100);
+                                Thread.sleep(10000);
                             }
                             else
                             {
-                                Thread.sleep(300);
+                                Thread.sleep(30000);
                             }
                         } 
                         catch (InterruptedException ex) 
@@ -208,22 +224,22 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_LEFT)
         {
-            _xpos--;
+            _xpos = _xpos - 5;
             User.setLocation(_xpos, _ypos);
         }
         else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
         {
-            _xpos++;
+            _xpos = _xpos + 5;
             User.setLocation(_xpos, _ypos);
         }
         else if(e.getKeyCode() == KeyEvent.VK_UP)
         {
-            _ypos--;
+            _ypos = _ypos - 5;
             User.setLocation(_xpos, _ypos);
         }
         else if(e.getKeyCode() == KeyEvent.VK_DOWN)
         {
-            _ypos++;
+            _ypos = _ypos + 5;
             User.setLocation(_xpos, _ypos);
         }
         else if(e.getKeyCode() == KeyEvent.VK_SPACE)
