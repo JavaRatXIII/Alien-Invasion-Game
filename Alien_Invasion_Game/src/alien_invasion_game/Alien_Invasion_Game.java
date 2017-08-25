@@ -174,11 +174,14 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     {
         for(int i = 0; i < Aliens.length; i++)
         {
-            if((_bullet.getY()==Aliens[i].getY()) && (_bullet.getX()==Aliens[i].getX()))
+            for(int n = 0; n < 100; n++)
             {
-                if(Aliens[i].isVisible())
+                if((_bullet.getY()==Aliens[i].getY()) && ((_bullet.getX()==Aliens[i].getX()+n) || (_bullet.getX()==Aliens[i].getX()-n/2)))
                 {
-                    Aliens[i].setVisible(false);
+                    if(Aliens[i].isVisible())
+                    {
+                        Aliens[i].setVisible(false);
+                    }
                 }
             }
         }
@@ -202,11 +205,11 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                         {
                             if(Aliens.length > 5)
                             {
-                                Thread.sleep(10000);
+                                Thread.sleep(1000);
                             }
                             else
                             {
-                                Thread.sleep(30000);
+                                Thread.sleep(3000);
                             }
                         } 
                         catch (InterruptedException ex) 
