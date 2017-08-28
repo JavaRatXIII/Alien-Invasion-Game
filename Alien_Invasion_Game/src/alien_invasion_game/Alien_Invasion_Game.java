@@ -17,6 +17,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     private int _xpos;
     private int _ypos;
     private int _numberOfAliens = 12;
+    private int _numberOfDeadAliens = 0;
     private IConsole _console;
     public JLabel[] Aliens;
     private JLabel _bullet;
@@ -157,7 +158,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                     y--;
                     try 
                     {
-                        Thread.sleep(3);
+                        Thread.sleep(2);
                     } 
                     catch (InterruptedException ex) 
                     {
@@ -181,6 +182,13 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                     if(Aliens[i].isVisible())
                     {
                         Aliens[i].setVisible(false);
+                        _numberOfDeadAliens++;
+                        if(_numberOfDeadAliens==Aliens.length)
+                        {
+                            JOptionPane.showMessageDialog(null, "You Win");
+                            dispose();
+                            System.exit(0);
+                        }
                     }
                 }
             }
@@ -205,11 +213,11 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                         {
                             if(Aliens.length > 5)
                             {
-                                Thread.sleep(400);
+                                Thread.sleep(450);
                             }
                             else
                             {
-                                Thread.sleep(200);
+                                Thread.sleep(300);
                             }
                         } 
                         catch (InterruptedException ex) 
