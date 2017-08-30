@@ -3,10 +3,13 @@ package alien_invasion_game;
 import java.awt.event.*;
 import Console.*;
 import java.awt.Color;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import javazoom.jl.player.Player;
 
 /**
  *
@@ -41,6 +44,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         }
         
         CreateAliens();
+        PlaySong();
         
         _xpos = User.getX();
         _ypos = User.getY(); 
@@ -185,7 +189,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                         _numberOfDeadAliens++;
                         if(_numberOfDeadAliens==Aliens.length)
                         {
-                            JOptionPane.showMessageDialog(null, "You Win");
+                            JOptionPane.showMessageDialog(null, "YOU WIN!!");
                             dispose();
                             System.exit(0);
                         }
@@ -226,6 +230,34 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
                         }
                         Aliens[i].setLocation(x, y);
                     }
+                }
+            }
+        }.start();
+    }
+    
+    public void PlaySong()
+    {
+        new Thread()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    FileInputStream fis = new FileInputStream("C:\\Users\\Jun\\Music\\Alien Song Theme.mp3");
+                    BufferedInputStream bis = new BufferedInputStream(fis);
+                    Player player = new Player(bis);
+                    player.play();
+                    if(player.isComplete())
+                    {
+                        JOptionPane.showMessageDialog(null, "TIMES UP YOU LOSE");
+                        dispose();
+                        System.exit(0);
+                    }
+                }
+                catch(Exception e)
+                {
+                    _console.WriteLine(e.getMessage());
                 }
             }
         }.start();
