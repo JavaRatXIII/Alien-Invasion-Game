@@ -2,6 +2,8 @@ package alien_invasion_game;
 
 import java.awt.event.*;
 import Console.*;
+import Interfaces.IConsoleFactory;
+import Utilities.ConsoleFactory;
 import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -15,20 +17,22 @@ import javazoom.jl.player.Player;
  *
  * @author Jun
  */
-public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionListener, KeyListener
+public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionListener, KeyListener, IGame
 {
     private int _xpos;
     private int _ypos;
     private int _numberOfAliens = 12;
     private int _numberOfDeadAliens = 0;
-    private IConsole _console;
+    private final IConsole _console;
     public JLabel[] Aliens;
-    private JLabel _bullet;
-    private Timer _timer = new Timer(5,this);
+    private final JLabel _bullet;
+    private final Timer _timer;
     
     
-    public Alien_Invasion_Game() 
+    public Alien_Invasion_Game(IConsoleFactory consoleFactory) 
     {
+        super();
+        _timer = new Timer(5,this);
         _timer.start();
         _bullet = new JLabel();
         addKeyListener(this);
@@ -48,7 +52,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         
         _xpos = User.getX();
         _ypos = User.getY(); 
-        _console = new Console();
+        _console = consoleFactory.GetConsole();
         MoveAliens();
     }
 
@@ -109,7 +113,7 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Alien_Invasion_Game().setVisible(true);
+                new Alien_Invasion_Game(new ConsoleFactory()).setVisible(true);
             }
         });
     }
@@ -118,11 +122,11 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
     public javax.swing.JLabel User;
     // End of variables declaration//GEN-END:variables
 
-    public final void CreateAliens()
+    public void CreateAliens()
     {
         int xpos = 70;
         int ypos = -10;
-        for(int i = 0; i < _numberOfAliens; i++)
+        for(int i = 0; i < Aliens.length; i++)
         {
                 DrawAliens(i,xpos,ypos);
                 xpos = xpos +100;
