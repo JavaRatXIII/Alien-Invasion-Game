@@ -6,6 +6,7 @@ import Interfaces.IConsoleFactory;
 import Utilities.ConsoleFactory;
 import java.awt.Color;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.Random;
 import java.util.logging.Level;
@@ -248,7 +249,9 @@ public class Alien_Invasion_Game extends javax.swing.JFrame implements ActionLis
             {
                 try
                 {
-                    FileInputStream fis = new FileInputStream("C:\\Users\\Jun\\Music\\Alien Song Theme.mp3");
+                    File song = new File("Alien Song Theme.mp3");
+                    FileInputStream fis = new FileInputStream(song.getAbsolutePath());
+                    _console.WriteLine(song.getAbsolutePath());
                     BufferedInputStream bis = new BufferedInputStream(fis);
                     Player player = new Player(bis);
                     player.play();
