@@ -6,6 +6,7 @@ import Console.Console;
  *
  * @author Jun
  */
-public interface IConsoleFactory {
+public interface IConsoleFactory 
+{
     public Console GetConsole();
 }
